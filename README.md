@@ -1,6 +1,6 @@
-# MFT 
+# ERC8000 
 ***
-MFT is an asset management protocol that inherits ERC721 and encompasses all NFT functionalities, while also implementing multiple slots for asset management. Its core features include:
+ERC8000 is an asset management protocol that inherits ERC721 and encompasses all NFT functionalities, while also implementing multiple slots for asset management. Its core features include:
 * MFT Management
   * Flexibly configure MFT transfer permissions, MFT types, and levels.
 * Slot Management
