@@ -1,4 +1,4 @@
-# ERC8000
+# ERC7635
 
 ## 1. MFT struct definition
 

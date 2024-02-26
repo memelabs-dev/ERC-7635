@@ -1,6 +1,6 @@
-# ERC8000 
+# ERC7635 
 ***
-ERC8000 is an asset management protocol that inherits ERC721 and encompasses all NFT functionalities, while also implementing multiple slots for asset management. Its core features include:
+ERC7635 is an asset management protocol that inherits ERC721 and encompasses all NFT functionalities, while also implementing multiple slots for asset management. Its core features include:
 * MFT Management
   * Flexibly configure MFT transfer permissions, MFT types, and levels.
 * Slot Management
@@ -18,7 +18,7 @@ ERC8000 is an asset management protocol that inherits ERC721 and encompasses all
 
 
 ## Contracts
-**[ERC8000](./contracts/ERC8000.sol)**
+**[ERC7635](./contracts/ERC7635.sol)**
 
 ## Documents
 
@@ -39,11 +39,11 @@ npm install
 
 pragma solidity ^0.8.6;
 
-import "./ERC8000.sol";
+import "./ERC7635.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 
-contract TestERC8000 is ERC8000, Ownable {
+contract TestERC7635 is ERC7635, Ownable {
 
   uint256 public count;
 
@@ -53,7 +53,7 @@ contract TestERC8000 is ERC8000, Ownable {
   constructor(
     string memory name_,
     string memory symbol_
-  ) ERC8000(name_, symbol_)  {
+  ) ERC7635(name_, symbol_)  {
   }
 
   /**
