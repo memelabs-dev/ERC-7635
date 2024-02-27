@@ -139,8 +139,6 @@ describe("MFT", function () {
         expect(await TestERC7635['balanceOf(uint256,uint256)'](2, 2)).to.eq(3 - 1 - 1);
 
         expect(await TestERC721['balanceOf(address)'](user2.address)).to.eq('2');
-
-        const nftTokensO4 = await TestERC7635.nftBalanceOf(2, 2)
     })
 
     it('Approved', async () => {

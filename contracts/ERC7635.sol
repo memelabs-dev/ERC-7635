@@ -706,6 +706,10 @@ contract ERC7635 is Context, IERC7635Metadata, IERC721Enumerable {
     ) internal virtual {
         address owner = _allTokens[_allTokensIndex[tokenId_]].owner;
         if (slots[slotIndex_].isNft) {
+            uint nftIndex = _nftTokensIndex[slotIndex_][valueOrNftId_];
+            uint nftId = _nftTokens[tokenId_][slotIndex_][nftIndex];
+            require(valueOrNftId_ == nftId, "ERC7635: approve invalid NFT ID");
+
             _slotNftApproved[tokenId_][owner][slotIndex_][valueOrNftId_] = to_;
         } else {
             _approvedValues[tokenId_][owner][slotIndex_][to_] = valueOrNftId_;

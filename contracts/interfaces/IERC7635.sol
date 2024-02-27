@@ -60,7 +60,7 @@ interface IERC7635 is IERC721 {
      * @param _tokenId The token to approve
      * @param _slotIndex The slot to approve
      * @param _operator The operator to be approved
-     * @param valueOrNftId_ The current approval value of `_tokenId` or nftId  that `_operator` is allowed to manage
+     * @param _valueOrNftId The current approval value of `_tokenId` or nftId  that `_operator` is allowed to manage
      */
     function approve(
         uint256 _tokenId,
