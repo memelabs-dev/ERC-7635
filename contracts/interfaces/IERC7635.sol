@@ -76,7 +76,7 @@ interface IERC7635 is IERC721 {
      * @param _nftId The NFT ID
      * @return The current approved account for `_nftId` token.
      */
-    function getSlotApproved(uint256 _tokenId, uint256 _slotIndex, uint256 _nftId) external view returns (address);
+    function getApproved(uint256 _tokenId, uint256 _slotIndex, uint256 _nftId) external view returns (address);
 
     /**
     * @notice Get the maximum value of a token that an operator is allowed to manage.

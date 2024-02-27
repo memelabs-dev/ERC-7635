@@ -146,8 +146,8 @@ describe("MFT", function () {
 
         // approve
         await TestERC7635.connect(user2)['approve(uint256,uint256,address,uint256)'](3, 2, user1.address, 6);
-        const getSlotApproved = await TestERC7635.getSlotApproved(3, 2,6)
-        console.log('getSlotApproved', getSlotApproved)
+        const getApproved = await TestERC7635['getApproved(uint256,uint256,uint256)'](3, 2,6)
+        console.log('getApproved', getApproved)
         await TestERC7635.connect(user1)['transferFrom(uint256,uint256,address,uint256)'](3, 2, TestERC721.address, 6);
 
     })

@@ -297,7 +297,7 @@ contract ERC7635 is Context, IERC7635Metadata, IERC721Enumerable {
      * @param nftId_ The NFT ID
      * @return The current approved account for `_nftId` token.
      */
-    function getSlotApproved(uint256 tokenId_, uint256 slotIndex_, uint256 nftId_) public view virtual override returns (address) {
+    function getApproved(uint256 tokenId_, uint256 slotIndex_, uint256 nftId_) public view virtual override returns (address) {
         address owner = ERC7635.ownerOf(tokenId_);
         return _slotNftApproved[tokenId_][owner][slotIndex_][nftId_];
     }
@@ -527,7 +527,7 @@ contract ERC7635 is Context, IERC7635Metadata, IERC721Enumerable {
         }
 
         if (slots[slotIndex_].isNft) {
-            require(ERC7635.getSlotApproved(tokenId_, slotIndex_, valueOrNftId_) == operator_, "ERC7635: slot nft approved!");
+            require(ERC7635.getApproved(tokenId_, slotIndex_, valueOrNftId_) == operator_, "ERC7635: slot nft approved!");
             delete _slotNftApproved[tokenId_][owner][slotIndex_][valueOrNftId_];
         } else {
             uint256 currentAllowance = ERC7635.allowance(tokenId_, slotIndex_, operator_);
