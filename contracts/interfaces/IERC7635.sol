@@ -26,9 +26,9 @@ interface IERC7635 is IERC721 {
      * @param _owner The owner address of this MFT
      * @param _slotIndex The slot to approve
      * @param _operator The operator to approve for
-     * @param _value The maximum value that `_operator` is allowed to manage
+     * @param _valueOrNftId The maximum value or nftId that `_operator` is allowed to manage
      */
-    event ApprovalValue(uint256 indexed _tokenId, address indexed _owner, uint256 indexed _slotIndex, address _operator, uint256 _value);
+    event ApprovalValue(uint256 indexed _tokenId, address indexed _owner, uint256 indexed _slotIndex, address _operator, uint256 _valueOrNftId);
 
     /**
      * @notice Get the number of decimals the slot
@@ -48,6 +48,7 @@ interface IERC7635 is IERC721 {
     * @dev Gets the number of NFTS in the slot
     * @param tokenId_ MFT ID
     * @param slotIndex_ Slot index
+    * @return The nft ids of `_slotIndex`
     */
     function nftBalanceOf(uint256 tokenId_, uint256 slotIndex_) external view returns (uint256[] memory);
 
@@ -59,24 +60,32 @@ interface IERC7635 is IERC721 {
      * @param _tokenId The token to approve
      * @param _slotIndex The slot to approve
      * @param _operator The operator to be approved
-     * @param _value The maximum value of `_toTokenId` that `_operator` is allowed to manage
+     * @param valueOrNftId_ The current approval value of `_tokenId` or nftId  that `_operator` is allowed to manage
      */
     function approve(
         uint256 _tokenId,
         uint256 _slotIndex,
         address _operator,
-        uint256 _value
+        uint256 _valueOrNftId
     ) external payable;
 
     /**
-     * @notice Get the maximum value of a token that an operator is allowed to manage.
+     * @notice Returns the account approved for `_nftId` token.
+     * @param _tokenId The token for which to query the approved account
+     * @param _slotIndex The slot for which to query the approved account
+     * @param _nftId The NFT ID
+     * @return The current approved account for `_nftId` token.
+     */
+    function getSlotApproved(uint256 _tokenId, uint256 _slotIndex, uint256 _nftId) external view returns (address);
+
+    /**
+    * @notice Get the maximum value of a token that an operator is allowed to manage.
      * @param _tokenId The token for which to query the allowance
      * @param _slotIndex The slot for which to query the allowance
      * @param _operator The address of an operator
      * @return The current approval value of `_tokenId` that `_operator` is allowed to manage
      */
     function allowance(uint256 _tokenId, uint256 _slotIndex, address _operator) external view returns (uint256);
-
 
     /**
     * @dev The MFT transfers slot value to other MFTS
