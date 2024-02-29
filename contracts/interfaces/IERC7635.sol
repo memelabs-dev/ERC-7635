@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
 /**
  * @title ERC-7635 Semi-Fungible Token Standard
- * Note: the ERC-165 identifier for this interface is 0x9fa8825f.
+ * Note: the ERC-165 identifier for this interface is 0xa33cc6cc.
  */
 interface IERC7635 is IERC721 {
     /**
