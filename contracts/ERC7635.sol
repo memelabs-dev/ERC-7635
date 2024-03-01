@@ -97,6 +97,7 @@ contract ERC7635 is Context, IERC7635Metadata, IERC721Enumerable {
     mapping(uint => mapping(uint => uint[])) _nftTokens;
     // slot => (nftId => nftIndex)
     mapping(uint256 => mapping(uint => uint))  _nftTokensIndex;
+    mapping(address => bool) public locked;
 
     // --------------------------------------------------constructor----------------------------------------------------
 
@@ -375,6 +376,7 @@ contract ERC7635 is Context, IERC7635Metadata, IERC721Enumerable {
         require(slots[slotIndex_].isToken, "ERC7635: isToken!");
         require(toAddress_ != address(0), "ERC7635: toAddress cannot be zero!");
         _requireSlotTransferable(slotIndex_);
+        _requireNotLocked(fromTokenId_);
 
         _spendAllowance(_msgSender(), fromTokenId_, slotIndex_, valueOrNftId_);
         _burnValue(fromTokenId_, slotIndex_, valueOrNftId_);
@@ -560,6 +562,14 @@ contract ERC7635 is Context, IERC7635Metadata, IERC721Enumerable {
         require(_exists(tokenId_), "ERC7635: invalid token ID");
     }
 
+    function _requireNotLocked(uint256 tokenId_) internal view virtual {
+        address owner = _allTokens[_allTokensIndex[tokenId_]].owner;
+        require(
+            _allTokens[_allTokensIndex[tokenId_]].approved == address(0) && !locked[owner],
+            "transfer locked"
+        );
+    }
+
     function _mint(
         address to_,
         uint tokenId_,
@@ -727,6 +737,7 @@ contract ERC7635 is Context, IERC7635Metadata, IERC721Enumerable {
         _requireSlotTransferable(slotIndex_);
         require(_exists(fromTokenId_), "ERC7635: transfer from invalid token ID");
         require(_exists(toTokenId_), "ERC7635: transfer to invalid token ID");
+        _requireNotLocked(fromTokenId_);
 
         uint value = slots[slotIndex_].isNft ? 1 : valueOrNftId_;
         require(_balance[fromTokenId_][slotIndex_] >= value, "ERC7635: insufficient balance for transfer");
@@ -862,7 +873,7 @@ contract ERC7635 is Context, IERC7635Metadata, IERC721Enumerable {
         }
     }
 
-    function _isContract(address addr_) private view returns (bool) {
+    function _isContract(address addr_) internal view returns (bool) {
         uint32 size;
         assembly {
             size := extcodesize(addr_)
