@@ -242,11 +242,18 @@ contract ERC7635 is Context, IERC7635Metadata, IERC721Enumerable {
         });
 
         if (update_) {
-            require(tokenSlot[tokenAddress_] == slotIndex_, "ERC7635: tokenAddress not exist");
+            if (isToken_) {
+                require(
+                    tokenSlot[tokenAddress_] == slotIndex_ || tokenSlot[tokenAddress_] == 0,
+                    "ERC7635: invalid tokenAddress"
+                );
+            }
             _requireExisted(slotIndex_);
             slots[slotIndex_] = slot;
         } else {
-            require(tokenSlot[tokenAddress_] == 0, "ERC7635: tokenAddress already exist");
+            if (isToken_) {
+                require(tokenSlot[tokenAddress_] == 0, "ERC7635: tokenAddress already exist");
+            }
             slots.push(slot);
             slotIndex_ = slots.length - 1;
         }
